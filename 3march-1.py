@@ -1,4 +1,4 @@
-def_task_1():
+def task_1():
 countries_capitals = { "Франция": "Париж",
                        "Австрия": "Вена",
                        "Нидерланды": "Амстердам",
@@ -18,7 +18,7 @@ print("Страны в алфавитном порядке:")
 for country in sorted_countries:
     print(f"{country}: {sorted_countries_capitals[country]}")
 
-def_task_2():
+def task_2():
 letters_value = {"А": 1, "В": 1, "Е": 1, "И": 1, "Н": 1, "О": 1, "Р": 1, "С": 1, "Т": 1
                 "Д": 2, "К": 2, "Л": 2, "М": 2, "П": 2, "У": 2,
                 "Б": 3, "Г": 3, "Ё": 3, "Ь": 3, "Я": 3,
