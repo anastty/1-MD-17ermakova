@@ -18,3 +18,14 @@ def  task2():
     vertical = orig.transpose(Image.FLIP_TOP_BOTTON)
     horizontal.save('horizontal.jpg')
     vertical.save('vertical.jpg')
+
+def task3():
+    from path import Path
+    from PIL import Image, ImageFilter
+
+    Path("filtered_images")
+    for i in range(1,6):
+        original_image = Image.open(f'{i}.jpg')
+        filtered_image = original_image.filter(ImageFilter.CONTOUR)
+        filtered_image.save(f'filtered_image/filtered_{i}.jpg')
+
