@@ -29,3 +29,13 @@ def task3():
         filtered_image = original_image.filter(ImageFilter.CONTOUR)
         filtered_image.save(f'filtered_image/filtered_{i}.jpg')
 
+def task4():
+    from PIL import Image, ImageDraw
+
+    watermark = Image.open("watermark.png")
+    position = (0, 0)
+    for i in range(1, 6):
+        original_image = Image.open(f'{i}.jpg')
+        watermarked_image = original_image.copy()
+        watermarked_image.paste(watermark, position, watermark)
+        watermarked_image.save(f'watermarked_{i}.jpg')
