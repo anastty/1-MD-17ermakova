@@ -13,6 +13,7 @@ def  task2():
     orig = Image.open('cat.png')
     small = orig.reduce(3)
     small.save('small_cat.jpg')
+
     horizontal = orig.transpose(Image.FLIP_LEFT_RIGHT)
     vertical = orig.transpose(Image.FLIP_TOP_BOTTON)
     horizontal.save('horizontal.jpg')
