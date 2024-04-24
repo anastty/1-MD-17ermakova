@@ -14,3 +14,13 @@ def task2():
         card_image.show()
     else:
         print("Открытка к этим праздникам не найдена.")
+
+def task1():
+    from PIL import Image
+    filename  = "otkritka.jpg"
+    withImage.open(filename) as img:
+    img.load()
+    img.crop = img.crop((100,200,300,400))
+    img.show()
+    img.save("Z:\1-МД-17 алгоритмизация\1-MD-17ermakova")
+
