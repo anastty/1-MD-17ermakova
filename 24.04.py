@@ -20,12 +20,7 @@ def task1():
     filename  = "otkritka.jpg"
     with Image.open(filename) as img:
         img.load()
-        img.crop = img.crop((100,200,300,400))
+        img.crop = img.crop((0,80,200,400))
         img.show()
         img.save("Z:\1-МД-17 алгоритмизация\1-MD-17ermakova")
 
-    def task1():
-        from PIL import Image, ImageDraw, ImageFont
-        a = str(input('Введите имя человека, кому нужно отправить открытку?'))
-        image = Image.open("otkritka.jpg")
-        font = ImageFont.truetype(font: )
