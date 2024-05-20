@@ -1,46 +1,62 @@
 def task_1():
-import os
-from PIL import Image, ImageFilter
+class Restaurant:
+    def __init__(self, restaurant_name, cuisine_type):
+        self.restaurant_name = restaurant_name
+        self.cuisine_type = cuisine_type
+    def describe_restaurant(self):
+        print(f"Название ресторана: {self.restaurant_name}")
+        print(f"Тип кухни: {self.cuisine_type}")
 
-os.makedirs('filtered_images', exist_ok=True)
+    def open_restaurant(self):
+        print(f"Ресторан {self.restaurant_name} открыт!")
 
-for filename in os.listdir('images'):
-    original_image = Image.open(os.path.join('images', filename))
+new_restaurant = Restaurant("The Blue Marlin", "Seafood")
 
-    filtered_image = original_image.filter(ImageFilter.CONTOUR)
+print("Название ресторана:", new_restaurant.restaurant_name)
+print("Тип кухни:", new_restaurant.cuisine_type)
 
-filtered_image.save(os.path.join('filtered_images', f'filtered_{filename}'))
+new_restaurant.describe_restaurant()
+new_restaurant.open_restaurant()
 
 def task_2():
-import os
-from PIL import Image, ImageFilter
+class Restaurant:
+  def __init__(self, restaurant_name, cuisine_type):
+    self.restaurant_name = restaurant_name.title()
+    self.cuisine_type = cuisine_type
 
-os.makedirs('filtered_images', exist_ok=True)
+  def describe_restaurant(self):
+    print(f"{self.restaurant_name} serves {self.cuisine_type} cuisine.")
 
-for filename in os.listdir('images'):
-    if filename.endswith('.jpg') or filename.endswith('.png'):
-            original_image = Image.open(os.path.join('images', filename))
+restaurant1 = Restaurant('the white flag', 'miu')
+restaurant2 = Restaurant('cherry', 'cake')
+restaurant3 = Restaurant('aurora', 'raskolnikov')
 
-            filtered_image = original_image.filter(ImageFilter.CONTOUR)
+restaurant1.describe_restaurant()
+restaurant2.describe_restaurant()
+restaurant3.describe_restaurant()
 
-filtered_image.save(os.path.join('filtered_images', f'filtered_{filename}'))
+def task_2():
+class Restaurant:
 
-def task_3():
-import csv
-with open('products.csv', 'r') as f:
-    reader = csv.reader(f)
+    def __init__(self, restaurant_name, cuisine_type):
+      self.restaurant_name = restaurant_name.title()
+      self.cuisine_type = cuisine_type
+      self.rating = 0
 
-    total_sum = 0
+    def describe_restaurant(self):
 
-    for row in reader:
-        product = row[0]
-        quantity = int(row[1])
-        price = float(row[2])
 
-        product_cost = quantity * price
+        print(f"{self.restaurant_name} serves {self.cuisine_type} cuisine and has a rating of {self.rating}.")
 
-        total_sum += product_cost
 
-        print(f'Нужно купить: {product} - {quantity} шт. за {product_cost} руб.')
+    def set_rating(self, new_rating):
+      self.rating = new_rating
 
-print(f'Итоговая сумма: {total_sum} руб.')
+class
+    restaurant = Restaurant('aurora', 'cherry')
+
+print(f"Initial rating: {restaurant.rating}")
+
+restaurant.set_rating(4.5)
+
+print(f"Updated rating: {restaurant.rating}")
