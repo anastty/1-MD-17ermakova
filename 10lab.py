@@ -1,4 +1,4 @@
-def task_1()
+def task_1():
     import json
 
 with open('products json', 'r') as f:
