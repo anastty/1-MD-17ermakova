@@ -35,7 +35,7 @@ restaurant1.describe_restaurant()
 restaurant2.describe_restaurant()
 restaurant3.describe_restaurant()
 
-def task_2():
+def task_3():
 class Restaurant:
 
     def __init__(self, restaurant_name, cuisine_type):
