@@ -17,6 +17,7 @@ TILE_SCALING = 0.5
 CHARACTER_SCALING = 0.20
 
 PLAYER_MOVEMENT_SPEED = 15
+JUMP_MAX_HEIGHT = 100
 
 class GameView(arcade.Window):
     """
@@ -29,14 +30,23 @@ class GameView(arcade.Window):
 
         self.player_list = None
         self.wall_list = None
-
+        self.player_texture = None
         self.player_sprite = None
         self.physics_engine = None
+
+        self.camera = None
+        self.player_jump = False
+        self.player_start = None
+        self.camera_max = 0
 
         self.background_color = arcade.csscolor.CORNFLOWER_BLUE
 
 
         # Variable to hold our texture for our player
+
+
+    def setup(self):
+        """Set up the game here. Call this function to restart the game."""
         self.player_texture = arcade.load_texture("images/перс для игры.png")
 
         # Separate variable that holds the player sprite
@@ -68,33 +78,62 @@ class GameView(arcade.Window):
             wall.center_y = coordinate[1]
             self.wall_list.append(wall)
 
+        self.camera = arcade.Camera2D()
 
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.wall_list)
-
-    def setup(self):
-        """Set up the game here. Call this function to restart the game."""
-        pass
 
 
     def on_draw(self):
         """Render the screen."""
 
         self.clear()
+        self.camera.use()
 
         self.player_list.draw()
         self.wall_list.draw()
 
+    def center_camera_to_player(self):
+        screen_center_x = self.player_sprite.center_x
+        self.camera_max = 0
+
+        if self.player_sprite.center_y - (self.camera.viewport_height / 4) >= self.camera_max:
+            screen_center_y = self.player_sprite.center_y - (self.camera.viewport_height / 4)
+            screen_camera_max = self.player_sprite.center_y - (self.camera.viewport_height / 4)
+        else:
+            screen_center_y = self.camera_max
+
+        if screen_center_x < self.camera.viewport_height / 2:
+            screen_center_x = self.camera.viewport_height / 2
+        if screen_center_y < self.camera.viewport_height / 2:
+            screen_center_y = self.camera.viewport_height / 2
+
+        player_centered = screen_center_x, screen_center_y
+        self.camera.position = player_centered
 
 
     def on_update(self, delta_time):
         """Movement and Game Logic"""
-
+        self.center_camera_to_player()
         self.physics_engine.update()
+
+        self.camera.position = self.player_sprite.position
+
+        if self.player_jump:
+            self.player_sprite.center_y += 2
+            if self.player_sprite.center_y > self.jump_start + JUMP_MAX_HEIGHT:
+                self.player_jump = False
+        else:
+            self.player_sprite.center_y -= 2
 
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed."""
+        if key == arcade.key.ESCAPE:
+            self.setup()
+
         if key == arcade.key.UP or key == arcade.key.W:
+            self.player_jump = True
+            self.jump_start = self.player_sprite.center_y
             self.player_sprite.change_y = PLAYER_MOVEMENT_SPEED
         elif key == arcade.key.DOWN or key == arcade.key.S:
             self.player_sprite.change_y = -PLAYER_MOVEMENT_SPEED
