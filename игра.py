@@ -24,6 +24,10 @@ PLAYER_X_SPEED = 5
 PLAYER_Y_SPEED = 5
 
 PLAYER_SPRITE_IMAGE_CHANGE_SPEED = 1
+SPRITE_PIXEL_SIZE = 16
+PLAYER_START_X = 80
+PLAYER_START_Y = 60
+NUMBER_OF_LEVELS = 2
 
 class MainView(arcade.View):
     """
@@ -62,6 +66,10 @@ class MainView(arcade.View):
 
         self.tile_map = None
         self.coins = 0
+
+        self.end_of_map = 0
+        self.level = 1
+
         self.manager = arcade.gui.UIManager()
 
         switch_menu_button = arcade.gui.UIFlatButton(text="Pause", width=150)
@@ -103,8 +111,8 @@ class MainView(arcade.View):
         # Separate variable that holds the player sprite
         self.player_sprite = arcade.Sprite(self.player_texture)
         self.player_sprite.scale = CHARACTER_SCALING
-        self.player_sprite.center_x = 40
-        self.player_sprite.center_y = 220
+        self.player_sprite.center_x = PLAYER_START_X
+        self.player_sprite.center_y = PLAYER_START_Y
 
         # SpriteList for our player
         self.player_list = arcade.SpriteList()
@@ -138,7 +146,7 @@ class MainView(arcade.View):
         for i in range(1, 5):
             self.player_sprite_images_r.append(arcade.load_texture(f"images/перс для игры{1}.png"))
 
-        map_name = "images/map.json"
+        map_name = f"images/map{self.level}.json"
 
         layer_options = {
             "platforms": {
@@ -150,6 +158,9 @@ class MainView(arcade.View):
         self.scene = arcade.Scene.from_tilemap(self.tile_map)
 
         self.wall_list = self.scene["platforms"]
+
+        self.end_of_map = self.tile_map.width * SPRITE_PIXEL_SIZE
+
 
 
     def on_draw(self):
@@ -252,8 +263,10 @@ class MainView(arcade.View):
         msec = int(ms * 100)
         self.total_time_print = f"{minutes:02d}:{seconds:02d}:{msec:02d}"
 
-        if self.coins == 5:
-            arcade.exit()
+        if self.player_sprite.center_x >= self.end_of_map:
+            self.level +=1
+
+            self.setup()
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed."""
